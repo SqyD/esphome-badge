@@ -1,12 +1,16 @@
 # Esphome on conference badges
-This is collection of attempts to get ESPHome firmware running on Badgeteam badges. This repository is very much a work in progress. Note that some of these attempts ceased their activity a long time ago and may never progress as most badgeteam members are actively workin on the next hardware and software for an upcoming badge project. So there is no formal commitment or support but we'll accept your contributions.
-
+This is collection of attempts to get [ESPHome](https://esphome.io/) firmware running on Badgeteam badges so you can control your [Home Assistant](https://www.home-assistant.io/) instance from your conference badge.
+<br><br>
+This repository is very much a work in progress. Note that some of these attempts ceased their activity a long time ago and may never progress as most badgeteam members are actively workin on the next hardware and software for an upcoming badge project. So there is no formal commitment or support but we'll accept your contributions.
+<br>
 Right now you can track progress on these badges:
 
 ## SHA2017
 All work for gettin esphome on the original [sha2017 badge](https://badge.team/docs/badges/sha2017/) was done by [Nizzle](https://github.com/Nizzle) [here](https://gist.github.com/Nizzle/6971c2cc066e6412740487bcc3b2c62a/). Some minor updates, fixes and simplifications by [SqyD](https://github.com/SqyD).
 
 ## MCH2022
+For the [mch2022 badge](https://badge.team/docs/badges/mch2022/) you can compile esphome as a native esp32 app and launch from a pretty launcher menu right along side your other badge apps.
+Very much a work in progress. More details [here](mch2022/README.md)
 
 ## Hackerhotel2024
 

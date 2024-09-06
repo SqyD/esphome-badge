@@ -13,7 +13,7 @@ logger:
 # Enable Home Assistant API
 api:
   encryption:
-    key: "chamgethisintosomethingnew"
+    key: "changethisintosomethingnew"
 
 ota:
   - platform: esphome
