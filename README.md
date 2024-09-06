@@ -1,5 +1,5 @@
-# Esphome on conference badges
-This is a collection of attempts to get [ESPHome](https://esphome.io/) firmware running on Badgeteam badges so you can control your [Home Assistant](https://www.home-assistant.io/) instance from your conference badge.
+# Esphome on Badge.Team conference badges
+This is a collection of attempts to get [ESPHome](https://esphome.io/) firmware running on [Badge.Team](https://badge.team/) badges so you can control your [Home Assistant](https://www.home-assistant.io/) instance from your conference badge.
 <br><br>
 This repository is very much a work in progress. Note that some of these attempts ceased their activity a long time ago and may never progress as most badgeteam members are actively working on the next hardware and software for an upcoming badge project. So there is no formal commitment or support but we'll accept your contributions.
 <br>
