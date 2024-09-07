@@ -12,6 +12,9 @@ All work for gettin esphome on the original [sha2017 badge](https://badge.team/d
 For the [mch2022 badge](https://badge.team/docs/badges/mch2022/) you can compile esphome as a native esp32 app and launch from a pretty launcher menu right along side your other badge apps.
 Very much a work in progress. More details [here](mch2022/README.md)
 
+## Wiccon2023
+The [badge](https://github.com/Wietsman/wiccon_badge_2023) for the 2023 edition of [Wiccon](https://wiccon.nl/) uses an esp8266, has pretty RGB leds, a button and exposes some GPIO for additional experimentation. Formally not a Badge.Team project but as it uses platform.io for its firmware a port to esphome was extremely easy so it was added here.
+
 ## Hackerhotel2024
 
 ## Hints

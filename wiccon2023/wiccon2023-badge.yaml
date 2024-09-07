@@ -1,0 +1,62 @@
+# Simple configuration to connect the event badge for Wiccon 2023 to Home Assistant through Esphome
+# More info:
+# Wiccon: wiccon.nl
+# Wiccon 2023 Badge: https://github.com/Wietsman/wiccon_badge_2023
+# ESPHome: esphome.io
+# Home Assistant: home-assistant.io
+
+esphome:
+  name: wiccon-badge
+  friendly_name: wiccon badge
+
+esp8266:
+  board: esp01_1m
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "CHANGEME"
+
+ota:
+  platform: esphome
+  password: "CHANGEME"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Wiccon-Badge Fallback Hotspot"
+    password: "CHANGEME"
+
+captive_portal:
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO04
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    name: "Badge Mode Button"
+
+light:
+  - platform: neopixelbus
+    type: GRB
+    variant: WS2812X
+    pin: GPIO14
+    num_leds: 8
+    name: "Badge Lights"
+    effects:
+      - pulse:
+      - random:
+      - strobe:
+      - flicker:
+      - addressable_rainbow:
+      - addressable_color_wipe:
+      - addressable_fireworks:
