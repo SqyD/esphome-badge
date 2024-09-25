@@ -30,7 +30,7 @@ bool Mch2022_rp2040Component::digital_read(uint8_t pin) {
   bool state = false;
   uint8_t port = 0;
 
-  if (this->read_register(XL9535_INPUT_PORT_0_REGISTER, &port, 1) != i2c::ERROR_OK) {
+  if (this->read_register(RP2040_REG_GPIO_IN, &port, 1) != i2c::ERROR_OK) {
     this->status_set_warning();
     return state;
   }

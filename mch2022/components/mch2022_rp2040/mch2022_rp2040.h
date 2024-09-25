@@ -24,7 +24,7 @@ enum {
   RP2040_REG_INPUT1 = 0x06,
   RP2040_REG_INPUT2 = 0x07,
   RP2040_REG_INTERRUPT1 = 0x08,
-  RP2040_REG_INTERRUPT1 = 0x09
+  RP2040_REG_INTERRUPT2 = 0x09
 };
 
 class Mch2022_rp2040Component : public Component, public i2c::I2CDevice {
