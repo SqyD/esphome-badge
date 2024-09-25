@@ -37,6 +37,27 @@ class Mch2022_rp2040Component : public Component, public i2c::I2CDevice {
   float get_setup_priority() const override { return setup_priority::IO; }
 };
 
+class Mch2022_rp2040GPIOPin : public GPIOPin {
+ public:
+  void set_parent(Mch2022_rp2040Component *parent) { this->parent_ = parent; }
+  void set_pin(uint8_t pin) { this->pin_ = pin; }
+  void set_inverted(bool inverted) { this->inverted_ = inverted; }
+  void set_flags(gpio::Flags flags) { this->flags_ = flags; }
+
+  void setup() override;
+  std::string dump_summary() const override;
+  void pin_mode(gpio::Flags flags) override;
+  bool digital_read() override;
+  void digital_write(bool value) override;
+
+ protected:
+  Mch2022_rp2040Component *parent_;
+
+  uint8_t pin_;
+  bool inverted_;
+  gpio::Flags flags_;
+};
+
 
 }  // namespace mch2022_rp2040
 }  // namespace esphome

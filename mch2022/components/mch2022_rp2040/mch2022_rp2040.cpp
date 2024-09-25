@@ -65,6 +65,29 @@ bool Mch2022_rp2040Component::button_read(uint8_t button) {
   return state;
 }
 
+void Mch2022_rp2040Component::pin_mode(uint8_t pin, gpio::Flags mode) {
+  uint8_t port = 0;
+
+
+  this->read_register(RP2040_REG_GPIO_DIR, &port, 1);
+
+  if (mode == gpio::FLAG_INPUT) {
+    port = port | (1 << (pin - 10));
+  } else if (mode == gpio::FLAG_OUTPUT) {
+    port = port & (~(1 << (pin - 10)));
+  }
+
+  this->write_register(RP2040_REG_GPIO_DIR, &port, 1);
+
+}
+
+void Mch2022_rp2040GPIOPin::setup() { this->pin_mode(this->flags_); }
+
+std::string Mch2022_rp2040GPIOPin::dump_summary() const { return str_snprintf("%u via XL9535", 15, this->pin_); }
+
+void Mch2022_rp2040GPIOPin::pin_mode(gpio::Flags flags) { this->parent_->pin_mode(this->pin_, flags); }
+bool Mch2022_rp2040GPIOPin::digital_read() { return this->parent_->digital_read(this->pin_) != this->inverted_; }
+
 
 }  // namespace mch2022_rp2040
 }  // namespace esphome
