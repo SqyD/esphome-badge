@@ -30,6 +30,7 @@ enum {
 class Mch2022_rp2040Component : public Component, public i2c::I2CDevice {
  public:
   bool digital_read(uint8_t pin);
+  void digital_write(uint8_t pin, bool value);
   bool button_read(uint8_t button);
   void pin_mode(uint8_t pin, gpio::Flags mode);
 
