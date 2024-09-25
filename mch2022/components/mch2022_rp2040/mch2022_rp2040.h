@@ -31,6 +31,7 @@ class Mch2022_rp2040Component : public Component, public i2c::I2CDevice {
  public:
   bool digital_read(uint8_t pin);
   bool button_read(uint8_t button);
+  void pin_mode(uint8_t pin, gpio::Flags mode);
 
   void setup() override;
   void dump_config() override;

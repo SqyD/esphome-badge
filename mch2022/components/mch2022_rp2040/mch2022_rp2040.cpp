@@ -83,7 +83,7 @@ void Mch2022_rp2040Component::pin_mode(uint8_t pin, gpio::Flags mode) {
 
 void Mch2022_rp2040GPIOPin::setup() { this->pin_mode(this->flags_); }
 
-std::string Mch2022_rp2040GPIOPin::dump_summary() const { return str_snprintf("%u via XL9535", 15, this->pin_); }
+std::string Mch2022_rp2040GPIOPin::dump_summary() const { return str_snprintf("%u via Mch2022 RP2040", 15, this->pin_); }
 
 void Mch2022_rp2040GPIOPin::pin_mode(gpio::Flags flags) { this->parent_->pin_mode(this->pin_, flags); }
 bool Mch2022_rp2040GPIOPin::digital_read() { return this->parent_->digital_read(this->pin_) != this->inverted_; }
