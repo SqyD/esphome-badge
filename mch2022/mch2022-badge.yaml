@@ -32,6 +32,14 @@ wifi:
 
 captive_portal:
 
+external_components:
+  - source: github://SqyD/esphome/@spi_dma
+    components: [ ili9xxx ]
+  - source: github://badgeteam/esphome-badge/
+    path: /mch2022/components/
+    components: [ mch2022_rp2040 ]
+
+
 switch:
   - platform: gpio
     pin: 19
@@ -90,4 +98,7 @@ display:
     cs_pin: 32
     lambda: |-
       it.print(0, 0, id(roboto_24), "Hello Badge Team!");
-      it.image(200, 20, id(ha_icon));  
+      it.image(200, 20, id(ha_icon));
+
+mch2022_rp2040:
+  - id: 'mch2022_rp2040_io'  
