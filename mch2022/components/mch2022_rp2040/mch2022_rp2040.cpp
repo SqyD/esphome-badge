@@ -87,7 +87,7 @@ std::string Mch2022_rp2040GPIOPin::dump_summary() const { return str_snprintf("%
 
 void Mch2022_rp2040GPIOPin::pin_mode(gpio::Flags flags) { this->parent_->pin_mode(this->pin_, flags); }
 bool Mch2022_rp2040GPIOPin::digital_read() { return this->parent_->digital_read(this->pin_) != this->inverted_; }
-
+void Mch2022_rp2040GPIOPin::digital_write(bool value) { this->parent_->digital_write(this->pin_, value != this->inverted_); }
 
 }  // namespace mch2022_rp2040
 }  // namespace esphome
