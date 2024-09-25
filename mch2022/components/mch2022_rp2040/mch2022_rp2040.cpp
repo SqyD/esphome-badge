@@ -35,8 +35,7 @@ bool Mch2022_rp2040Component::digital_read(uint8_t pin) {
     return state;
   }
 
-    state = (port & (1 << pin)) != 0;
-  }
+  state = (port & (1 << pin)) != 0;
 
   this->status_clear_warning();
   return state;
