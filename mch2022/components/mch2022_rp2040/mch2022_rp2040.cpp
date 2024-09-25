@@ -41,6 +41,41 @@ bool Mch2022_rp2040Component::digital_read(uint8_t pin) {
   return state;
 }
 
+void Mch2022_rp2040Component::digital_write(uint8_t pin, bool value) {
+  uint8_t port = 0;
+  uint8_t register_data = 0;
+
+  if (pin > 7) {
+    if (this->read_register(RP2040_REG_GPIO_IN, &register_data, 1) != i2c::ERROR_OK) {
+      this->status_set_warning();
+      return;
+    }
+
+    register_data = register_data & (~(1 << (pin - 10)));
+    port = register_data | value << (pin - 10);
+
+    if (this->write_register(RP2040_REG_GPIO_OUT, &port, 1) != i2c::ERROR_OK) {
+      this->status_set_warning();
+      return;
+    }
+  } else {
+    if (this->read_register(RP2040_REG_GPIO_OUT, &register_data, 1) != i2c::ERROR_OK) {
+      this->status_set_warning();
+      return;
+    }
+    register_data = register_data & (~(1 << pin));
+    port = register_data | value << pin;
+
+    if (this->write_register(RP2040_REG_GPIO_OUT, &port, 1) != i2c::ERROR_OK) {
+      this->status_set_warning();
+      return;
+    }
+  }
+
+  this->status_clear_warning();
+}
+
+
 bool Mch2022_rp2040Component::button_read(uint8_t button) {
   bool state = false;
   uint8_t port = 0;
