@@ -42,8 +42,6 @@ bool Mch2022_rp2040Component::digital_read(uint8_t pin) {
   return state;
 }
 
-
-
 bool Mch2022_rp2040Component::button_read(uint8_t button) {
   bool state = false;
   uint8_t port = 0;

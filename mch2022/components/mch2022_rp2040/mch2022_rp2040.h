@@ -30,27 +30,11 @@ enum {
 class Mch2022_rp2040Component : public Component, public i2c::I2CDevice {
  public:
   bool digital_read(uint8_t pin);
-  bool button_read(uint8_t button)
+  bool button_read(uint8_t button);
 
   void setup() override;
   void dump_config() override;
   float get_setup_priority() const override { return setup_priority::IO; }
-};
-
-enum {
-    RP2040_INPUT_BUTTON_HOME = 0,
-    RP2040_INPUT_BUTTON_MENU,
-    RP2040_INPUT_BUTTON_START,
-    RP2040_INPUT_BUTTON_ACCEPT,
-    RP2040_INPUT_BUTTON_BACK,
-    RP2040_INPUT_FPGA_CDONE,
-    RP2040_INPUT_BATTERY_CHARGING,
-    RP2040_INPUT_BUTTON_SELECT,
-    RP2040_INPUT_JOYSTICK_LEFT,
-    RP2040_INPUT_JOYSTICK_PRESS,
-    RP2040_INPUT_JOYSTICK_DOWN,
-    RP2040_INPUT_JOYSTICK_UP,
-    RP2040_INPUT_JOYSTICK_RIGHT
 };
 
 
