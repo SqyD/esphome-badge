@@ -58,10 +58,13 @@ bool Mch2022_rp2040Component::button_read(uint8_t button) {
       return state;
     }
 
-    *state = (port >> pin) & 0x01;
+    state = (port >> button) & 0x01;
   }
 
   this->status_clear_warning();
   return state;
 }
 
+
+}  // namespace mch2022_rp2040
+}  // namespace esphome
