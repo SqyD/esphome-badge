@@ -7,7 +7,6 @@ esp32:
   board: esp32dev
   framework:
     type: esp-idf
-    # version: 4.4.4
     sdkconfig_options:
       CONFIG_SPI_FLASH_DANGEROUS_WRITE_ALLOWED: y
   partitions: mch2022-badge/partitions.csv
@@ -35,15 +34,26 @@ captive_portal:
 external_components:
   - source: github://SqyD/esphome/@spi_dma
     components: [ ili9xxx ]
-  - source: github://badgeteam/esphome-badge/
-    path: /mch2022/components/
+  - source:
+      type: git
+      url: https://github.com/badgeteam/esphome-badge
+      ref: master
+      path: mch2022/components
     components: [ mch2022_rp2040 ]
+    refresh: 1s
 
 
 switch:
   - platform: gpio
     pin: 19
     name: "Kite Lights Switch"
+    id: kite_light_switch
+    internal: True
+  - platform: gpio
+    pin: 26
+    restore_mode: ALWAYS_OFF
+    name: "LCD Mode"
+    internal: True
 
 light:
   - platform: esp32_rmt_led_strip
@@ -51,8 +61,14 @@ light:
     pin: 5
     num_leds: 5
     rmt_channel: 0
-    chipset: ws2812
+    chipset: SK6812
     name: "Kite Leds"
+    on_turn_on:
+      then:
+        - switch.turn_on: kite_light_switch
+    on_turn_off:
+      then:
+        - switch.turn_off: kite_light_switch
 
 i2c:
   sda: GPIO22
@@ -73,19 +89,6 @@ sensor:
     address: 0x77
     update_interval: 60s
 
-# WARNING: All the sections below are currently not working
-# The display is sharing the SPI bus with the FPGA chip on the badge. Not sure if that's relevant.
-
-font:
-  - file: "gfonts://Roboto"
-    id: roboto_24
-    size: 24
-
-image:
-  - file: mdi:home-assistant
-    id: ha_icon
-    resize: 80x80
-
 spi:
   clk_pin: 18
   mosi_pin: 23
@@ -93,12 +96,29 @@ spi:
 display:
   - platform: ili9xxx
     model: ili9341
+    id: badge_display
     dc_pin: 33
     reset_pin: 25
     cs_pin: 32
-    lambda: |-
-      it.print(0, 0, id(roboto_24), "Hello Badge Team!");
-      it.image(200, 20, id(ha_icon));
+    transform:
+      swap_xy: true
+    dimensions: 
+      width: 320
+      height: 240
+    invert_colors: false
+    auto_clear_enabled: false
+    update_interval: never
+
+lvgl:
+  displays:
+    - badge_display
+  pages:
+    - id: main_page
+      widgets:
+        - label:
+            align: CENTER
+            text: 'Hello Badge Team!'
+
 
 mch2022_rp2040:
   - id: 'mch2022_rp2040_io'  
