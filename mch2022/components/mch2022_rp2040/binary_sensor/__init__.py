@@ -80,7 +80,7 @@ SENSORS = {
     ),
     CONF_BATTERY_CHARGING: binary_sensor.binary_sensor_schema(
         icon=ICON_BATTERY_CHARGING,
-        entity_category=DEVICE_CLASS_BATTERY_CHARGING,
+        # device_class=DEVICE_CLASS_BATTERY_CHARGING,
     ),
 }
 
