@@ -90,7 +90,7 @@ CONFIG_SCHEMA = cv.Schema(
         cv.Optional(CONF_INTERRUPT_PIN, default="34"): pins.internal_gpio_input_pin_schema,
     }
 ).extend(
-    { cv.Optional(sensor): schema for sensor, schema in SENSORS.items() }
+    { cv.Optional(binary_sensor): schema for binary_sensor, schema in SENSORS.items() }
 )
 
 async def to_code(config):
@@ -98,7 +98,8 @@ async def to_code(config):
     sens = await binary_sensor.new_binary_sensor(config)
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
-    #for sensor_ in SENSORS:
+
+    # for sensor_ in SENSORS:
     #  if conf := config.get(sensor_):
     #    sens = await binary_sensor.new_binary_sensor(conf)
     #    var = cg.new_Pvariable(conf[CONF_ID])
