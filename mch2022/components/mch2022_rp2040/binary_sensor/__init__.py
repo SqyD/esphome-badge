@@ -51,6 +51,9 @@ SENSORS = {
     CONF_BUTTON_MENU: binary_sensor.binary_sensor_schema(
         icon=ICON_BUTTON_MENU,
     ),
+    CONF_BUTTON_START: binary_sensor.binary_sensor_schema(
+        icon=ICON_BUTTON_START,
+    ),
     CONF_BUTTON_ACCEPT: binary_sensor.binary_sensor_schema(
         icon=ICON_BUTTON_ACCEPT,
     ),
