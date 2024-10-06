@@ -9,11 +9,14 @@
 namespace esphome {
 namespace mch2022_rp2040 {
 
-class Mch2022_rp2040BinarySensor : public Component, public binary_sensor::BinarySensor, public SensorItem {
+class Mch2022_rp2040BinarySensor : public Component, public binary_sensor::BinarySensor {
  public:
   void set_parent(Mch2022_rp2040Component *parent) { this->parent_ = parent; }
+  void set_interrupt_pin(InternalGPIOPin *pin) { this->interrupt_pin_ = pin; }
   void dump_config() override;
   void loop();
+ protected:
+  InternalGPIOPin *interrupt_pin_{};
 
 };
 
