@@ -16,6 +16,7 @@ class Mch2022_rp2040BinarySensor : public Component, public binary_sensor::Binar
   void dump_config() override;
   void loop();
  protected:
+  MPR121Component *parent_;
   InternalGPIOPin *interrupt_pin_{};
 
 };
