@@ -95,12 +95,14 @@ CONFIG_SCHEMA = cv.Schema(
 
 async def to_code(config):
     # paren = await cg.get_variable(config[CONF_MCH20222_RP2040])
-
-    for sensor_ in SENSORS:
-      if conf := config.get(sensor_):
-        sens = await binary_sensor.new_binary_sensor(conf)
-        var = cg.new_Pvariable(conf[CONF_ID])
-        await cg.register_component(var, conf)
+    sens = await binary_sensor.new_binary_sensor(config)
+    var = cg.new_Pvariable(config[CONF_ID])
+    await cg.register_component(var, config)
+    #for sensor_ in SENSORS:
+    #  if conf := config.get(sensor_):
+    #    sens = await binary_sensor.new_binary_sensor(conf)
+    #    var = cg.new_Pvariable(conf[CONF_ID])
+    #    await cg.register_component(var, conf)
         #    binary_sensor_type = getattr(BinarySensorTypeEnum, sensor_.upper())
         #    cg.add(paren.set_sub_binary_sensor(binary_sensor_type, sens))
 
