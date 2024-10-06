@@ -2,14 +2,15 @@
 Very much a work in progress. Based on esp-idf as Arduino support is very limited for this badge. No OTA by design.
 #### Working features
 * Wifi
-* RGB Leds
+* RGB Leds in the kite
 * I2C
 * Bosch bme680 climate sensor
+* Display
 #### Not working (yet?)
-* Display insists on a whitescreen of death and generic errors in the log. I've tried many variations of the configuration. Not sure why the [esphome component](https://esphome.io/components/display/ili9xxx) for the ili9341 display doesn't like this setup. Perhaps it's confused by the FPGA that's also on the SPI bus?
 * All the I/O connected to the rpi204 chip like Buttons, IR Led, LCD Backlight, etc
 * Audio (likely due to limitations in support for this esphome feature with esp-idf)
 * The BNO055 accelerometer, gyroscope, magnetometer sensor (no component in esphome for this (yet))
+* FPGA connected i/o: RGB Led, pmod pins.
 
 ### Building
 * Create a new esp32dev device in esphome
