@@ -1,5 +1,6 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
+from esphome import pins
 from esphome.components import binary_sensor
 from esphome.const import CONF_ID, DEVICE_CLASS_BATTERY_CHARGING, CONF_INTERRUPT_PIN
 from .. import mch2022_rp2040_ns, Mch2022_rp2040Component, CONF_MCH20222_RP2040
