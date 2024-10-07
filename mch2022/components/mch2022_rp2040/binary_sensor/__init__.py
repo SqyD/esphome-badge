@@ -9,7 +9,7 @@ DEPENDENCIES = ["mch2022_rp2040"]
 CODEOWNERS = ["@SqyD"]
 
 Mch2022_rp2040BinarySensor = mch2022_rp2040_ns.class_(
-    "Mch2022_rp2040BinarySensor", binary_sensor.BinarySensor, cg.Component
+    "Mch2022_rp2040BinarySensor", cg.Component, binary_sensor.BinarySensor
 )
 CONF_BUTTON = "button"
 

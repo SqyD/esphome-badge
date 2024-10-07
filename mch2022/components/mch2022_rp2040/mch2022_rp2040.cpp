@@ -26,6 +26,13 @@ void Mch2022_rp2040Component::dump_config() {
   }
 }
 
+void Mch2022_rp2040Component::loop() { 
+    if (!this->interrupt_pin_->digital_read()) {
+
+      ESP_LOGE(TAG, "Button pressed on the rp2040 !");
+    }
+}
+
 //void Mch2022_rp2040Component::pin_mode(uint8_t pin, gpio::Flags mode) {
 //  uint8_t port = 0;
 //
