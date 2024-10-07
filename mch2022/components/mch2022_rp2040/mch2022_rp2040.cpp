@@ -34,7 +34,7 @@ void Mch2022_rp2040Component::loop() {
       this->read_register(RP2040_REG_INPUT1, &reg1, 2);
     // uint8_t reg2 = this->read_register(RP2040_REG_INPUT1, &port, 1);
     // ESP_LOGE(TAG, "Button pressed on the rp2040 !");
-       ESP_LOGE(TAG, "Reg1: %i", (unint16_t) reg1);
+       ESP_LOGE(TAG, "Reg1: %i", (uint16_t) reg1);
     }
     // ESP_LOGE(TAG, "Reg2: %i", (int) reg2);
     // if (!this->interrupt_pin_->digital_read()) {
