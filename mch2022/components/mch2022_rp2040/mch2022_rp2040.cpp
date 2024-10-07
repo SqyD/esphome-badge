@@ -28,11 +28,19 @@ void Mch2022_rp2040Component::dump_config() {
   LOG_PIN("  Interrupt Pin: ", this->interrupt_pin_);
 }
 
-void Mch2022_rp2040Component::loop() { 
-    if (!this->interrupt_pin_->digital_read()) {
+void Mch2022_rp2040Component::loop() {
+    uint8_t port = 0; 
+    uint8_t reg1 = this->read_register(RP2040_REG_INPUT1, &port, 1)
+    uint8_t reg2 = this->read_register(RP2040_REG_INPUT1, &port, 1)
+    ESP_LOGE(TAG, "Button pressed on the rp2040 !");
+    ESP_LOGE(TAG, "Reg1: %" reg1 "!");
+    ESP_LOGE(TAG, "Reg2: %" reg2 "!");
+    // if (!this->interrupt_pin_->digital_read()) {
+    // if {
 
-      ESP_LOGE(TAG, "Button pressed on the rp2040 !");
-    }
+    //  ESP_LOGE(TAG, "Button pressed on the rp2040 !");
+    //}
+    // this->interrupt_pin->clear_interrupt()
 }
 
 //void Mch2022_rp2040Component::pin_mode(uint8_t pin, gpio::Flags mode) {
