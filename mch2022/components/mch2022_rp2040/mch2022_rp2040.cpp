@@ -15,6 +15,7 @@ void Mch2022_rp2040Component::setup() {
     this->mark_failed();
     return;
   }
+  this->interrupt_pin_->setup();
 }
 
 void Mch2022_rp2040Component::dump_config() {
@@ -24,10 +25,11 @@ void Mch2022_rp2040Component::dump_config() {
   if (this->is_failed()) {
     ESP_LOGE(TAG, "Communication with the rp2040 failed!");
   }
+  LOG_PIN("  Interrupt Pin: ", this->interrupt_pin_);
 }
 
 void Mch2022_rp2040Component::loop() { 
-    if (!this->interrupt_pin_->digital_read()) {
+    if (this->interrupt_pin_->digital_read()) {
 
       ESP_LOGE(TAG, "Button pressed on the rp2040 !");
     }
