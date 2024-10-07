@@ -27,10 +27,14 @@ CONFIG_SCHEMA = (
     cv.Schema({cv.Required(CONF_ID): cv.declare_id(Mch2022_rp2040Component)})
     .extend(cv.COMPONENT_SCHEMA)
     .extend(i2c.i2c_device_schema(0x17))
+    .extend(cv.Optional(CONF_INTERRUPT_PIN, default="34"): pins.internal_gpio_input_pin_schema)
 )
 
 async def to_code(config):
-    var = cg.new_Pvariable(config[CONF_ID])
+    var = cg.new_Pvariable(
+        config[CONF_ID],
+        config[CONF_INTERRUPT_PIN]
+        )
     await cg.register_component(var, config)
     await i2c.register_i2c_device(var, config)
 
