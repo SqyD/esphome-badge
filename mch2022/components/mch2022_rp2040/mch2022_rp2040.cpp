@@ -30,12 +30,13 @@ void Mch2022_rp2040Component::dump_config() {
 
 void Mch2022_rp2040Component::loop() {
     if (!this->interrupt_pin_->digital_read()) {
-      uint8_t reg1 = 0; 
-      this->read_register(RP2040_REG_INPUT1, &reg1, 2);
-      this->write_register(RP2040_REG_INTERRUPT2, 0x00)
+      uint8_t reg1 = 0;
+      bool stop = true
+      this->read_register(RP2040_REG_INPUT1, &reg1, 2, stop);
+      this->write_register(RP2040_REG_INTERRUPT2, 0x00, 1, stop)
     // uint8_t reg2 = this->read_register(RP2040_REG_INPUT1, &port, 1);
     // ESP_LOGE(TAG, "Button pressed on the rp2040 !");
-       ESP_LOGE(TAG, "Reg1: %i", reg1);
+      ESP_LOGE(TAG, "Reg1: %i", reg1);
     }
     // ESP_LOGE(TAG, "Reg2: %i", (int) reg2);
     // if (!this->interrupt_pin_->digital_read()) {
