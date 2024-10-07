@@ -34,7 +34,7 @@ CONFIG_SCHEMA = (
 async def to_code(config):
     var = cg.new_Pvariable(
         config[CONF_ID],
-        config[CONF_INTERRUPT_PIN]
+        # config[CONF_INTERRUPT_PIN]
         )
     cg.add(var.config(CONF_INTERRUPT_PIN))
     await cg.register_component(var, config)
