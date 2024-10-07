@@ -8,6 +8,7 @@ from esphome.const import (
     CONF_MODE,
     CONF_NUMBER,
     CONF_OUTPUT,
+    CONF_INTERRUPT_PIN,
 )
 from esphome import pins
 
