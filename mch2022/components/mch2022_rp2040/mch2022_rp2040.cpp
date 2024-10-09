@@ -36,7 +36,7 @@ void Mch2022_rp2040Component::set_sub_binary_sensor(uint8_t input, binary_sensor
   //}
 }
 
-void Mch2022_rp2040Component::update_sub_binary_sensor_(int input, uint8_t value) {
+void Mch2022_rp2040Component::update_sub_binary_sensor_(uint8_t input, uint8_t value) {
   if (value < 2) {
     bool converted_value = value == 1;
     size_t index = (size_t) input;
