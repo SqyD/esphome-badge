@@ -9,9 +9,12 @@ DEPENDENCIES = ["mch2022_rp2040"]
 CODEOWNERS = ["@SqyD"]
 
 Mch2022_rp2040BinarySensor = mch2022_rp2040_ns.class_(
-  "Mch2022_rp2040BinarySensor", cg.Component, binary_sensor.BinarySensor
+  "Mch2022_rp2040BinarySensor", binary_sensor.BinarySensor, cg.Component 
 )
-CONF_INPUT = "input"
+
+CONF_INPUT = "binary_sensor_input"
+
+MULTI_CONF = True
 
 CONF_INPUTS = {
   "button_home": 0,
@@ -44,6 +47,7 @@ CONFIG_SCHEMA = cv.Schema(
 async def to_code(config):
     var = cg.new_Pvariable(
       config[CONF_ID],
+      config[CONF_NAME],
       config[CONF_INPUT]
     )
     paren = await cg.get_variable(config[CONF_MCH20222_RP2040])
