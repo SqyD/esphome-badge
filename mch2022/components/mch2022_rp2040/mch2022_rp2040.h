@@ -44,42 +44,23 @@ enum {
 };
 
 class Mch2022_rp2040Component : public Component, public i2c::I2CDevice {
- public:
-  void pin_mode(uint8_t pin, gpio::Flags mode);
-  void setup() override;
-  void dump_config() override;
-  // void set_interrupt_pin(InternalGPIOPin *pin) { this->interrupt_pin_ = pin; }
-  void set_pin(InternalGPIOPin *pin) { this->interrupt_pin_ = pin; }
-  void loop() override;
-  float get_setup_priority() const override { return setup_priority::IO; }
-  bool button_interrupt_;
-  uint16_t button_state_;
+  public:
+    void pin_mode(uint8_t pin, gpio::Flags mode);
+    void setup() override;
+    void dump_config() override;
+    void set_pin(InternalGPIOPin *pin) { this->interrupt_pin_ = pin; }
+    void loop() override;
 
- protected:
-   InternalGPIOPin *interrupt_pin_{};
+    void update_interrupt();
+    void update_inputs();
+    float get_setup_priority() const override { return setup_priority::IO; }
+
+    bool input_interrupt_;
+    uint16_t input_state_;
+
+  protected:
+    InternalGPIOPin *interrupt_pin_{};
 };
-
-//class Mch2022_rp2040GPIOPin : public GPIOPin {
-// public:
-//  void set_parent(Mch2022_rp2040Component *parent) { this->parent_ = parent; }
-//  void set_pin(uint8_t pin) { this->pin_ = pin; }
-//  void set_inverted(bool inverted) { this->inverted_ = inverted; }
-//  void set_flags(gpio::Flags flags) { this->flags_ = flags; }
-
-//  void setup() override;
-//  std::string dump_summary() const override;
-//  void pin_mode(gpio::Flags flags) override;
-//  bool digital_read() override;
-//  void digital_write(bool value) override;
-//
-// protected:
-//  Mch2022_rp2040Component *parent_;
-//
-//  uint8_t pin_;
-//  bool inverted_;
-//  gpio::Flags flags_;
-// };
-
 
 }  // namespace mch2022_rp2040
 }  // namespace esphome

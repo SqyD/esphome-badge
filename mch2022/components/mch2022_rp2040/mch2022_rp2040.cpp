@@ -16,8 +16,8 @@ void Mch2022_rp2040Component::setup() {
     return;
   }
   this->interrupt_pin_->setup();
-  this->button_interrupt_ = false;
-  this->button_state_ = 0x0000;
+  this->input_interrupt_ = false;
+  this->input_state_ = 0x0000;
 }
 
 void Mch2022_rp2040Component::dump_config() {
@@ -30,25 +30,35 @@ void Mch2022_rp2040Component::dump_config() {
   LOG_PIN("  Interrupt Pin: ", this->interrupt_pin_);
 }
 
-void Mch2022_rp2040Component::loop() {
-    bool current_interrupt = !this->interrupt_pin_->digital_read();
 
-    if (this->button_interrupt_ != current_interrupt) {
-      this->button_interrupt_ = current_interrupt;
-      ESP_LOGE(TAG, "Interrupt changed on the rp2040 !");
-    }
-    if (this->button_interrupt_) {
-      uint8_t input_register1 = 0x00;
-      uint8_t input_register2 = 0x00;
-      this->read_register(RP2040_REG_INPUT2, (uint8_t*) &input_register2, 4);
-      this->read_register(RP2040_REG_INPUT1, (uint8_t*) &input_register1, 4);
-      uint16_t state = ((input_register1 + (input_register2 << 8)) ); //& 0xFFFF);
-      // uint16_t state = input_register & 0xFFFF;
-      if (this->button_state_ != state){
-        this->button_state_ = state;
-        ESP_LOGE(TAG, "Button state changed to %i", this->button_state_);
-      }
-    }
+void Mch2022_rp2024Component::update_interrupt() {
+  bool current_interrupt = !this->interrupt_pin_->digital_read();
+
+  if (this->input_interrupt_ != current_interrupt) {
+    this->input_interrupt_ = current_interrupt;
+    // ESP_LOGD(TAG, "Interrupt changed on the rp2040 !");
+  }
+}
+
+void Mch2022_rp2040Component::update_inputs() {
+  uint8_t input_register1 = 0x00;
+  uint8_t input_register2 = 0x00;
+  this->read_register(RP2040_REG_INPUT2, (uint8_t*) &input_register2, 4);
+  this->read_register(RP2040_REG_INPUT1, (uint8_t*) &input_register1, 4);
+  uint16_t state = ((input_register1 + (input_register2 << 8)) );
+  if (this->input_state_ != state){
+    this->input_state_ = state;
+    ESP_LOGD(TAG, "Button state changed to %i", this->input_state_);
+  }
+}
+  
+void Mch2022_rp2040Component::loop() {
+  this->update_interrupt()
+  if (this->input_interrupt_) {
+    this->update_inputs();
+  }
+}
+
 
     // if (!this->interrupt_pin_->digital_read()) {
     //  uint8_t reg1 = 0;
@@ -66,7 +76,7 @@ void Mch2022_rp2040Component::loop() {
     //  ESP_LOGE(TAG, "Button pressed on the rp2040 !");
     //}
     // this->interrupt_pin->clear_interrupt()
-}
+
 
 //void Mch2022_rp2040Component::pin_mode(uint8_t pin, gpio::Flags mode) {
 //  uint8_t port = 0;
