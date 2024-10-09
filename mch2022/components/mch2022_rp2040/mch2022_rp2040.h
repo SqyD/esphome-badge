@@ -52,6 +52,8 @@ class Mch2022_rp2040Component : public Component, public i2c::I2CDevice {
   void set_pin(InternalGPIOPin *pin) { this->interrupt_pin_ = pin; }
   void loop() override;
   float get_setup_priority() const override { return setup_priority::IO; }
+  bool button_interrupt_;
+  uint16_t button_state_;
 
  protected:
    InternalGPIOPin *interrupt_pin_{};
