@@ -17,7 +17,7 @@ void Mch2022_rp2040Component::setup() {
   this->interrupt_pin_->setup();
   this->input_interrupt_ = false;
   this->input_state_ = 0x0000;
-  this->update_inputs()
+  this->update_inputs();
 }
 
 void Mch2022_rp2040Component::dump_config() {
