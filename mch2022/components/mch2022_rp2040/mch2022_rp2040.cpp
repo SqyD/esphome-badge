@@ -31,7 +31,7 @@ void Mch2022_rp2040Component::dump_config() {
 }
 
 
-void Mch2022_rp2024Component::update_interrupt() {
+void Mch2022_rp2040Component::update_interrupt() {
   bool current_interrupt = !this->interrupt_pin_->digital_read();
 
   if (this->input_interrupt_ != current_interrupt) {
