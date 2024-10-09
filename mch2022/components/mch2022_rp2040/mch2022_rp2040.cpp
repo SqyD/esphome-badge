@@ -31,7 +31,7 @@ void Mch2022_rp2040Component::dump_config() {
 }
 
 void Mch2022_rp2040Component::loop() {
-    bool current_interrupt = !this->interrupt_pin_->digital_read());
+    bool current_interrupt = !this->interrupt_pin_->digital_read();
     if (this->button_interrupt_ != current_interrupt) {
         this->button_interrupt_ = current_interrupt;
         ESP_LOGE(TAG, "Interrupt changed on the rp2040 !");
