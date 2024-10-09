@@ -22,9 +22,9 @@ CONF_INPUTS = {
   "battery_charging": 6,
   "button_select": 7,
   "joystick_left": 8,
-  "joystick_press": 9
+  "joystick_press": 9,
   "joystick_down": 10
-  "joystick_up": 11
+  "joystick_up": 11,
   "joystick_right": 12
 }
 
