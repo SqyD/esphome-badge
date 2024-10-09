@@ -29,7 +29,6 @@ void Mch2022_rp2040Component::dump_config() {
   LOG_PIN("  Interrupt Pin: ", this->interrupt_pin_);
 }
 
-#ifdef USE_BINARY_SENSOR
 void Mch2022_rp2040Component::set_sub_binary_sensor(SubBinarySensorInput input, binary_sensor::BinarySensor *sens) {
   if (input < SubBinarySensorInput::SUB_BINARY_SENSOR_TYPE_COUNT) {
     this->sub_binary_sensors_[(size_t) input] = sens;
@@ -45,7 +44,6 @@ void Mch2022_rp2040Component::update_sub_binary_sensor_(SubBinarySensorInput inp
       this->sub_binary_sensors_[index]->publish_state(converted_value);
   }
 }
-#endif  // USE_BINARY_SENSOR
 
 
 void Mch2022_rp2040Component::update_interrupt() {

@@ -4,9 +4,8 @@
 #include "esphome/components/i2c/i2c.h"
 #include "esphome/core/hal.h"
 
-#ifdef USE_BINARY_SENSOR
+
 #include "esphome/components/binary_sensor/binary_sensor.h"
-#endif
 
 
 namespace esphome {
@@ -33,7 +32,6 @@ enum {
 };
 
 class Mch2022_rp2040Component : public Component, public i2c::I2CDevice {
-  #ifdef USE_BINARY_SENSOR
   public:
     enum class SubBinarySensorInput {
       RP2040_INPUT_BUTTON_HOME = 0,
@@ -50,21 +48,14 @@ class Mch2022_rp2040Component : public Component, public i2c::I2CDevice {
       RP2040_INPUT_JOYSTICK_UP,
       RP2040_INPUT_JOYSTICK_RIGHT,
       SUB_BINARY_SENSOR_INPUT_COUNT
-  };
-  void set_sub_binary_sensor(SubBinarySensorInput input, binary_sensor::BinarySensor *sens);
+    };
+    void set_sub_binary_sensor(SubBinarySensorInput input, binary_sensor::BinarySensor *sens);
 
-  protected:
-    void update_sub_binary_sensor_(SubBinarySensorInput input, uint8_t value);
-    binary_sensor::BinarySensor *sub_binary_sensors_[(size_t) SubBinarySensorInput::SUB_BINARY_SENSOR_INPUT_COUNT]{nullptr};
-  #endif
-  
-  public:
     void pin_mode(uint8_t pin, gpio::Flags mode);
     void setup() override;
     void dump_config() override;
     void set_pin(InternalGPIOPin *pin) { this->interrupt_pin_ = pin; }
     void loop() override;
-
     void update_interrupt();
     void update_inputs();
     float get_setup_priority() const override { return setup_priority::IO; }
@@ -72,11 +63,10 @@ class Mch2022_rp2040Component : public Component, public i2c::I2CDevice {
     bool input_interrupt_;
     uint16_t input_state_;
 
-
-
-
   protected:
     InternalGPIOPin *interrupt_pin_{};
+    void update_sub_binary_sensor_(SubBinarySensorInput input, uint8_t value);
+    binary_sensor::BinarySensor *sub_binary_sensors_[(size_t) SubBinarySensorInput::SUB_BINARY_SENSOR_INPUT_COUNT]{nullptr};
 };
 
 }  // namespace mch2022_rp2040
