@@ -2,7 +2,7 @@ import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome import pins
 from esphome.components import binary_sensor
-from esphome.const import CONF_ID, DEVICE_CLASS_BATTERY_CHARGING, CONF_INTERRUPT_PIN
+from esphome.const import CONF_ID
 from .. import mch2022_rp2040_ns, Mch2022_rp2040Component, CONF_MCH20222_RP2040
 
 DEPENDENCIES = ["mch2022_rp2040"]
@@ -33,7 +33,7 @@ CONFIG_SCHEMA = cv.Schema(
   .extend(
       {
         cv.GenerateID(CONF_MCH20222_RP2040): cv.use_id(Mch2022_rp2040Component),
-        cv.Required(CONF_BUTTON): cv.string,
+        cv.Required(CONF_INPUT): cv.string,
         # cv.Optional(CONF_BUTTONS[CONF_BUTTON])
       }
   )
