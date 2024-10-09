@@ -12,7 +12,7 @@ Mch2022_rp2040BinarySensor = mch2022_rp2040_ns.class_(
   "Mch2022_rp2040BinarySensor", binary_sensor.BinarySensor, cg.Component 
 )
 
-CONF_INPUT = "binary_sensor_input"
+CONF_INPUT = "input"
 
 MULTI_CONF = True
 
