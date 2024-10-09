@@ -32,18 +32,22 @@ void Mch2022_rp2040Component::dump_config() {
 
 void Mch2022_rp2040Component::loop() {
     bool current_interrupt = !this->interrupt_pin_->digital_read();
-    uint8_t input_register = 0x00;
+
     if (this->button_interrupt_ != current_interrupt) {
-        this->button_interrupt_ = current_interrupt;
-        ESP_LOGE(TAG, "Interrupt changed on the rp2040 !");
+      this->button_interrupt_ = current_interrupt;
+      ESP_LOGE(TAG, "Interrupt changed on the rp2040 !");
     }
     if (this->button_interrupt_) {
-        this->read_register(RP2040_REG_INPUT2, (uint8_t*) &input_register, 4);
-        uint16_t state = input_register & 0xFFFF;
-        if (this->button_state_ != state){
-            this->button_state_ = state;
-            ESP_LOGE(TAG, "Button state changed to %i", this->button_state_);
-        }
+      uint8_t input_register1 = 0x00;
+      uint8_t input_register2 = 0x00;
+      this->read_register(RP2040_REG_INPUT1, (uint8_t*) &input_register1, 2);
+      this->read_register(RP2040_REG_INPUT1, (uint8_t*) &input_register2, 2);
+      uint16_t state = (input_register1 + (input_register2 >> 8) & 0xFFFF);
+      // uint16_t state = input_register & 0xFFFF;
+      if (this->button_state_ != state){
+        this->button_state_ = state;
+        ESP_LOGE(TAG, "Button state changed to %i", this->button_state_);
+      }
     }
 
     // if (!this->interrupt_pin_->digital_read()) {
