@@ -53,7 +53,7 @@ void Mch2022_rp2040Component::update_inputs() {
 }
   
 void Mch2022_rp2040Component::loop() {
-  this->update_interrupt()
+  this->update_interrupt();
   if (this->input_interrupt_) {
     this->update_inputs();
   }
