@@ -43,7 +43,7 @@ CONFIG_SCHEMA = cv.Schema(
 
 async def to_code(config):
     var = cg.new_Pvariable(
-      config[CONF_ID],
+      ## config[CONF_ID],
       config[CONF_INPUT]
     )
     paren = await cg.get_variable(config[CONF_MCH20222_RP2040])
