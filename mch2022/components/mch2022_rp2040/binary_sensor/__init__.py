@@ -42,13 +42,13 @@ CONFIG_SCHEMA = cv.Schema(
 
 
 async def to_code(config):
-    #var = cg.new_Pvariable(
-    ##    config[CONF_ID],
-    #  config[CONF_INPUT]
-    #)
+    var = cg.new_Pvariable(
+      config[CONF_ID],
+      config[CONF_INPUT]
+    )
     paren = await cg.get_variable(config[CONF_MCH20222_RP2040])
     sens = await binary_sensor.new_binary_sensor(config)
     input = CONF_INPUTS[config[CONF_INPUT]]
     cg.add(paren.set_sub_binary_sensor(input, sens))
-    # await cg.register_component(var, config)
+    await cg.register_component(var, config)
  
