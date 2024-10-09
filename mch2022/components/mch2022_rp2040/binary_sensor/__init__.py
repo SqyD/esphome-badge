@@ -50,5 +50,5 @@ async def to_code(config):
     sens = await binary_sensor.new_binary_sensor(config)
     input = CONF_INPUTS[conf[CONF_INPUT]]
     cg.add(paren.set_sub_binary_sensor(input, sens))
-    await cg.register_component(var, config)
+    # await cg.register_component(var, config)
  
