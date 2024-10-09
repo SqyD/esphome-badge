@@ -42,7 +42,7 @@ void Mch2022_rp2040Component::loop() {
       uint8_t input_register2 = 0x00;
       this->read_register(RP2040_REG_INPUT2, (uint8_t*) &input_register2, 4);
       this->read_register(RP2040_REG_INPUT1, (uint8_t*) &input_register1, 4);
-      uint16_t state = (((input_register1 >> 4) + (input_register2 << 4)) ); //& 0xFFFF);
+      uint16_t state = ((input_register1 + (input_register2 << 8)) ); //& 0xFFFF);
       // uint16_t state = input_register & 0xFFFF;
       if (this->button_state_ != state){
         this->button_state_ = state;
