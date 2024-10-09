@@ -38,7 +38,7 @@ void Mch2022_rp2040Component::loop() {
         ESP_LOGE(TAG, "Interrupt changed on the rp2040 !");
     }
     if (this->button_interrupt_) {
-        this->read_register(RP2040_REG_INPUT1, (uint8_t*) &input_register, 4);
+        this->read_register(RP2040_REG_INPUT2, (uint8_t*) &input_register, 4);
         uint16_t state = input_register & 0xFFFF;
         if (this->button_state_ != state){
             this->button_state_ = state;
