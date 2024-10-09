@@ -10,6 +10,7 @@ from esphome import pins
 DEPENDENCIES = ["i2c"]
 CODEOWNERS = ["@SqyD"]
 
+
 MULTI_CONF = True
 
 CONF_MCH20222_RP2040 = "mch2022_rp2040"
