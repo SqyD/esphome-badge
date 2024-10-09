@@ -9,85 +9,23 @@ DEPENDENCIES = ["mch2022_rp2040"]
 CODEOWNERS = ["@SqyD"]
 
 Mch2022_rp2040BinarySensor = mch2022_rp2040_ns.class_(
-    "Mch2022_rp2040BinarySensor", cg.Component, binary_sensor.BinarySensor
+  "Mch2022_rp2040BinarySensor", cg.Component, binary_sensor.BinarySensor
 )
-CONF_BUTTON = "button"
+CONF_INPUT = "input"
 
-# Buttons
-CONF_BUTTON_HOME = "button_home"
-CONF_BUTTON_MENU = "button_menu"
-CONF_BUTTON_START = "button_start"
-CONF_BUTTON_ACCEPT = "button_accept"
-CONF_BUTTON_BACK = "button_back"
-CONF_BUTTON_SELECT = "button_select"
-#Joystick
-CONF_JOYSTICK_LEFT = "joystick_left"
-CONF_JOYSTICK_PRESS = "joystick_press"
-CONF_JOYSTICK_DOWN = "joystick_down"
-CONF_JOYSTICK_UP = "joystick_up"
-CONF_JOYSTICK_RIGHT = "joystick_right"
-CONF_BATTERY_CHARGING = "battery_charging"
-CONF_FPGA_CDONE = "dummy"
-
-# Additional icons
-ICON_BUTTON_HOME = "mdi:home"
-ICON_BUTTON_MENU = "mdi:menu-open"
-ICON_BUTTON_START = "mdi:play"
-ICON_BUTTON_ACCEPT = "mdi:keyboard-return"
-ICON_BUTTON_BACK = "mdi:backspace"
-ICON_BUTTON_SELECT = "mdi:select"
-
-ICON_JOYSTICK_LEFT = "mdi:gamepad-circle-left"
-ICON_JOYSTICK_PRESS = "mdi:ggamepad-circle"
-ICON_JOYSTICK_DOWN = "mdi:gamepad-circle-down"
-ICON_JOYSTICK_UP = "mdi:gamepad-circle-up"
-ICON_JOYSTICK_RIGHT = "mdi:gamepad-circle-right"
-
-ICON_BATTERY_CHARGING = "mdi:battery_charging"
-
-
-CONF_BUTTONS = {
-    CONF_BUTTON_HOME: binary_sensor.binary_sensor_schema(
-        icon=ICON_BUTTON_HOME,
-    ),
-    CONF_BUTTON_MENU: binary_sensor.binary_sensor_schema(
-        icon=ICON_BUTTON_MENU,
-    ),
-    CONF_BUTTON_START: binary_sensor.binary_sensor_schema(
-        icon=ICON_BUTTON_START,
-    ),
-    CONF_BUTTON_ACCEPT: binary_sensor.binary_sensor_schema(
-        icon=ICON_BUTTON_ACCEPT,
-    ),
-    CONF_BUTTON_BACK: binary_sensor.binary_sensor_schema(
-        icon=ICON_BUTTON_BACK,
-    ),
-    CONF_FPGA_CDONE: binary_sensor.binary_sensor_schema(
-        icon=ICON_BUTTON_HOME,
-    ),
-    CONF_BATTERY_CHARGING: binary_sensor.binary_sensor_schema(
-        icon=ICON_BATTERY_CHARGING,
-        # device_class=DEVICE_CLASS_BATTERY_CHARGING,
-    ),
-    CONF_BUTTON_SELECT: binary_sensor.binary_sensor_schema(
-        icon=ICON_BUTTON_SELECT,
-    ),
-    CONF_JOYSTICK_LEFT: binary_sensor.binary_sensor_schema(
-        icon=ICON_JOYSTICK_LEFT,
-    ),
-    CONF_JOYSTICK_PRESS: binary_sensor.binary_sensor_schema(
-        icon=ICON_JOYSTICK_PRESS,
-    ),
-    CONF_JOYSTICK_DOWN: binary_sensor.binary_sensor_schema(
-        icon=ICON_JOYSTICK_DOWN,
-    ),
-    CONF_JOYSTICK_UP: binary_sensor.binary_sensor_schema(
-        icon=ICON_JOYSTICK_UP,
-    ),
-    CONF_JOYSTICK_RIGHT: binary_sensor.binary_sensor_schema(
-        icon=ICON_JOYSTICK_RIGHT,
-    ),
-
+CONF_INPUTS = {
+  "button_home": 0,
+  "button_menu": 1,
+  "button_start": 2,
+  "button_accept": 3,
+  "button_back": 4,
+  "battery_charging": 6,
+  "button_select": 7,
+  "joystick_left": 8,
+  "joystick_press": 9
+  "joystick_down": 10
+  "joystick_up": 11
+  "joystick_right": 12
 }
 
 CONFIG_SCHEMA = cv.Schema(
@@ -106,40 +44,11 @@ CONFIG_SCHEMA = cv.Schema(
 async def to_code(config):
     var = cg.new_Pvariable(
         config[CONF_ID],
-        config[CONF_BUTTON]
+        config[CONF_INPUT]
     )
     paren = await cg.get_variable(config[CONF_MCH20222_RP2040])
-    cg.add(var.set_parent(paren))
-
+    sens = await binary_sensor.new_binary_sensor(config)
+    input = CONF_INPUTS[conf[CONF_INPUT]]
+    cg.add(paren.set_sub_binary_sensor(input, sens))
     await cg.register_component(var, config)
-    # await binary_sensor.new_binary_sensor(config)
-
-    # paren = await cg.get_variable(config[CONF_MCH20222_RP2040])
-
-    ### var = cg.new_Pvariable(config[CONF_ID]) 
-    # for sensor_ in SENSORS:
-    #  if conf := config.get(sensor_):
-    #    sens = await binary_sensor.new_binary_sensor(conf)
-    #    var = cg.new_Pvariable(conf[CONF_ID])
-    #    await cg.register_component(var, conf)
-        #    binary_sensor_type = getattr(BinarySensorTypeEnum, sensor_.upper())
-        #    cg.add(paren.set_sub_binary_sensor(binary_sensor_type, sens))
-
-#CONFIG_SCHEMA = cv.All(
-#    cv.COMPONENT_SCHEMA.extend(
-#        {
-#            cv.GenerateID(): cv.declare_id(Mch2022_rp2040BinarySensor),
-#            cv.GenerateID(CONF_MCH20222_RP2040): cv.use_id(Mch2022_rp2040Component),
-            # cv.Optional(CONF_HAS_TARGET): binary_sensor.binary_sensor_schema(
-            #    device_class=DEVICE_CLASS_OCCUPANCY
-            #),
-#        }
-#    ),
-#)
-
-
-#async def to_code(config):
-#    var = cg.new_Pvariable(config[CONF_ID])
-#    await cg.register_component(var, config)
-#    mch2022_rp2040 = await cg.get_variable(config[CONF_MCH20222_RP2040])
-#    cg.add(mch2022_rp2040.register_listener(var))
+ 

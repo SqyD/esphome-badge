@@ -4,6 +4,11 @@
 #include "esphome/components/i2c/i2c.h"
 #include "esphome/core/hal.h"
 
+#ifdef USE_BINARY_SENSOR
+#include "esphome/components/binary_sensor/binary_sensor.h"
+#endif
+
+
 namespace esphome {
 namespace mch2022_rp2040 {
 
@@ -27,23 +32,32 @@ enum {
   RP2040_REG_INTERRUPT2 = 0x09
 };
 
-enum {
-    RP2040_INPUT_BUTTON_HOME = 0,
-    RP2040_INPUT_BUTTON_MENU,
-    RP2040_INPUT_BUTTON_START,
-    RP2040_INPUT_BUTTON_ACCEPT,
-    RP2040_INPUT_BUTTON_BACK,
-    RP2040_INPUT_FPGA_CDONE,
-    RP2040_INPUT_BATTERY_CHARGING,
-    RP2040_INPUT_BUTTON_SELECT,
-    RP2040_INPUT_JOYSTICK_LEFT,
-    RP2040_INPUT_JOYSTICK_PRESS,
-    RP2040_INPUT_JOYSTICK_DOWN,
-    RP2040_INPUT_JOYSTICK_UP,
-    RP2040_INPUT_JOYSTICK_RIGHT
-};
-
 class Mch2022_rp2040Component : public Component, public i2c::I2CDevice {
+  #ifdef USE_BINARY_SENSOR
+  public:
+    enum class SubBinarySensorInput {
+      RP2040_INPUT_BUTTON_HOME = 0,
+      RP2040_INPUT_BUTTON_MENU,
+      RP2040_INPUT_BUTTON_START,
+      RP2040_INPUT_BUTTON_ACCEPT,
+      RP2040_INPUT_BUTTON_BACK,
+      RP2040_INPUT_FPGA_CDONE,
+      RP2040_INPUT_BATTERY_CHARGING,
+      RP2040_INPUT_BUTTON_SELECT,
+      RP2040_INPUT_JOYSTICK_LEFT,
+      RP2040_INPUT_JOYSTICK_PRESS,
+      RP2040_INPUT_JOYSTICK_DOWN,
+      RP2040_INPUT_JOYSTICK_UP,
+      RP2040_INPUT_JOYSTICK_RIGHT,
+      SUB_BINARY_SENSOR_INPUT_COUNT
+  };
+  void set_sub_binary_sensor(SubBinarySensorInput input, binary_sensor::BinarySensor *sens);
+
+  protected:
+    void update_sub_binary_sensor_(SubBinarySensorInput input, uint8_t value);
+    binary_sensor::BinarySensor *sub_binary_sensors_[(size_t) SubBinarySensorInput::SUB_BINARY_SENSOR_INPUT_COUNT]{nullptr};
+  #endif
+  
   public:
     void pin_mode(uint8_t pin, gpio::Flags mode);
     void setup() override;
@@ -57,6 +71,9 @@ class Mch2022_rp2040Component : public Component, public i2c::I2CDevice {
 
     bool input_interrupt_;
     uint16_t input_state_;
+
+
+
 
   protected:
     InternalGPIOPin *interrupt_pin_{};
