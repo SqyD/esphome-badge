@@ -50,7 +50,7 @@ class Mch2022_rp2040Component : public Component, public i2c::I2CDevice {
       SUB_BINARY_SENSOR_INPUT_COUNT
     };
     // void set_sub_binary_sensor(SubBinarySensorInput input, binary_sensor::BinarySensor *sens);
-    void set_sub_binary_sensor(int input, binary_sensor::BinarySensor *sens);
+    void set_sub_binary_sensor(uint8_t input, binary_sensor::BinarySensor *sens);
 
     void pin_mode(uint8_t pin, gpio::Flags mode);
     void setup() override;
