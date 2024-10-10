@@ -66,7 +66,6 @@ class Mch2022_rp2040Component : public Component, public i2c::I2CDevice {
 
   protected:
     InternalGPIOPin *interrupt_pin_{};
-    // void update_sub_binary_sensor_(SubBinarySensorInput input, bool value);
     void update_sub_binary_sensor_(uint8_t input, bool value);
     binary_sensor::BinarySensor *sub_binary_sensors_[(size_t) SubBinarySensorInput::SUB_BINARY_SENSOR_INPUT_COUNT]{nullptr};
 };
