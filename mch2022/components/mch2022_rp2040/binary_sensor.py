@@ -30,7 +30,7 @@ CONFIG_SCHEMA = cv.Schema(
   binary_sensor.binary_sensor_schema()
   .extend(
       {
-        cv.GenerateID(CONF_MCH20222_RP2040): cv.use_id(Mch2022_rp2040Component),
+        ## cv.GenerateID(CONF_MCH20222_RP2040): cv.use_id(Mch2022_rp2040Component),
         cv.Required(CONF_INPUT): cv.string,
       }
   )
