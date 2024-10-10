@@ -1,6 +1,6 @@
 #include "mch2022_rp2040.h"
 #include "esphome/core/log.h"
-#include "esphome/core/defines.h"
+
 
 namespace esphome {
 namespace mch2022_rp2040 {
