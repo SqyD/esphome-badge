@@ -1,16 +1,11 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
-from esphome import pins
 from esphome.components import binary_sensor
 from esphome.const import CONF_ID
-from .. import mch2022_rp2040_ns, Mch2022_rp2040Component, CONF_MCH20222_RP2040
+from . import mch2022_rp2040_ns, Mch2022_rp2040Component, CONF_MCH20222_RP2040
 
 DEPENDENCIES = ["mch2022_rp2040"]
 CODEOWNERS = ["@SqyD"]
-
-Mch2022_rp2040BinarySensor = mch2022_rp2040_ns.class_(
-  "Mch2022_rp2040BinarySensor", binary_sensor.BinarySensor, cg.Component 
-)
 
 CONF_INPUT = "input"
 
@@ -32,15 +27,13 @@ CONF_INPUTS = {
 }
 
 CONFIG_SCHEMA = cv.Schema(
-  binary_sensor.binary_sensor_schema(Mch2022_rp2040BinarySensor)
+  binary_sensor.binary_sensor_schema()
   .extend(
       {
         cv.GenerateID(CONF_MCH20222_RP2040): cv.use_id(Mch2022_rp2040Component),
         cv.Required(CONF_INPUT): cv.string,
-        # cv.Optional(CONF_BUTTONS[CONF_BUTTON])
       }
   )
-  .extend(cv.COMPONENT_SCHEMA)
 )
 
 
