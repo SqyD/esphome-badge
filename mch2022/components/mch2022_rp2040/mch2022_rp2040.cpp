@@ -42,7 +42,7 @@ void Mch2022_rp2040Component::update_sub_binary_sensor_(uint8_t input, bool valu
     ((!this->sub_binary_sensors_[input]->has_state()) ||
     (this->sub_binary_sensors_[input]->state != value))
     ) {
-      this->sub_binary_sensors_[index]->publish_state(value);
+      this->sub_binary_sensors_[input]->publish_state(value);
     }
 }
 
