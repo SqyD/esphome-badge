@@ -9,7 +9,7 @@ CODEOWNERS = ["@SqyD"]
 
 CONF_INPUT = "input"
 
-MULTI_CONF = True
+## MULTI_CONF = True
 
 CONF_INPUTS = {
   "button_home": 0,
