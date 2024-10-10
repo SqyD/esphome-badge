@@ -31,9 +31,11 @@ CONFIG_SCHEMA = cv.Schema(
   .extend(
       {
         ## cv.GenerateID(CONF_MCH20222_RP2040): cv.use_id(Mch2022_rp2040Component),
+        
         cv.Required(CONF_INPUT): cv.string,
       }
   )
+  .extend(cv.COMPONENT_SCHEMA)
 )
 
 
