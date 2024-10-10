@@ -36,14 +36,14 @@ void Mch2022_rp2040Component::set_sub_binary_sensor(uint8_t input, binary_sensor
   //}
 }
 
-void Mch2022_rp2040Component::update_sub_binary_sensor_(uint8_t input, uint8_t value) {
-  if (value < 2) {
-    bool converted_value = value == 1;
-    size_t index = (size_t) input;
-    if ((this->sub_binary_sensors_[index] != nullptr) && ((!this->sub_binary_sensors_[index]->has_state()) ||
-                                                          (this->sub_binary_sensors_[index]->state != converted_value)))
-      this->sub_binary_sensors_[index]->publish_state(converted_value);
-  }
+void Mch2022_rp2040Component::update_sub_binary_sensor_(uint8_t input, bool value) {
+  if (
+    (this->sub_binary_sensors_[input] != nullptr) && 
+    ((!this->sub_binary_sensors_[input]->has_state()) ||
+    (this->sub_binary_sensors_[input]->state != value))
+    ) {
+      this->sub_binary_sensors_[index]->publish_state(value);
+    }
 }
 
 
@@ -63,6 +63,9 @@ void Mch2022_rp2040Component::update_inputs() {
   if (this->input_state_ != state){
     this->input_state_ = state;
     ESP_LOGD(TAG, "Button state changed to %i", this->input_state_);
+    for (uint8_t index = 0; index < 16; index++) {
+        this->update_sub_binary_sensor_(index, (state >> index) & 0x01);
+    }
   }
 }
   
