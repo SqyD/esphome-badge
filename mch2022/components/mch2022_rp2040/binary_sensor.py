@@ -35,7 +35,7 @@ CONFIG_SCHEMA = cv.Schema(
       cv.Required(CONF_INPUT): cv.string,
     }
   )
-  .extend(cv.COMPONENT_SCHEMA)
+  ## .extend(cv.COMPONENT_SCHEMA)
 )
 
 
