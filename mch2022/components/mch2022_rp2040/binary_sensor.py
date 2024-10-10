@@ -9,6 +9,8 @@ CODEOWNERS = ["@SqyD"]
 
 CONF_INPUT = "input"
 
+BinarySensorInputEnum = Mch2022_rp2040Component.enum("SubBinarySensorInput", True)
+
 ## MULTI_CONF = True
 
 CONF_INPUTS = {
@@ -47,6 +49,6 @@ async def to_code(config):
     #)
     paren = await cg.get_variable(config[CONF_MCH20222_RP2040])
     sens = await binary_sensor.new_binary_sensor(config)
-    input_int = CONF_INPUTS[config[CONF_INPUT]]
-    cg.add(paren.set_sub_binary_sensor(input_int, sens))
+    binary_sensor_input = getattr(BinarySensorInputEnum, CONF_INPUTS[config[CONF_INPUT]])
+    cg.add(paren.set_sub_binary_sensor(binary_sensor_input, sens))
     # await cg.register_component(var, config)
