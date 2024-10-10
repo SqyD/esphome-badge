@@ -68,7 +68,7 @@ void Mch2022_rp2040Component::update_inputs() {
     ESP_LOGD(TAG, "Button state changed to %i", this->input_state_);
     for (uint8_t index = 0; index < 16; index++) {
         std::string input_str = std::to_string(index);
-        this->update_sub_binary_sensor_(SubBinarySensorType::input_str, (state >> index) & 0x01);
+        this->update_sub_binary_sensor_(SubBinarySensorInput::input_str, (state >> index) & 0x01);
     }
   }
 }
