@@ -51,11 +51,12 @@ class Mch2022_rp2040Component : public Component, public i2c::I2CDevice {
       RP2040_INPUT_JOYSTICK_RIGHT,
       SUB_BINARY_SENSOR_INPUT_COUNT
     };
-  void set_sub_binary_sensor(SubBinarySensorInput input, binary_sensor::BinarySensor *sens);
+  void set_sub_binary_sensor(uint8_t input, binary_sensor::BinarySensor *sens);
 
  protected:
-  void update_sub_binary_sensor_(SubBinarySensorInput input, bool value);
-  binary_sensor::BinarySensor *sub_binary_sensors_[(size_t) SubBinarySensorInput::SUB_BINARY_SENSOR_INPUT_COUNT]{nullptr};
+  void update_sub_binary_sensor_(uint8_t input, bool value);
+  std::map<uint8_t, binary_sensor::BinarySensor> binary_sensors_;
+  // binary_sensor::BinarySensor *sub_binary_sensors_[(size_t) SubBinarySensorInput::SUB_BINARY_SENSOR_INPUT_COUNT]{nullptr};
 #endif
   public:
     void pin_mode(uint8_t pin, gpio::Flags mode);

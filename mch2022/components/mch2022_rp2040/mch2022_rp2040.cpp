@@ -31,21 +31,21 @@ void Mch2022_rp2040Component::dump_config() {
 }
 
 #ifdef USE_BINARY_SENSOR
-void Mch2022_rp2040Component::set_sub_binary_sensor(SubBinarySensorInput input, binary_sensor::BinarySensor *sens) {
+void Mch2022_rp2040Component::set_sub_binary_sensor(uint8_t input, binary_sensor::BinarySensor *sens) {
 // void Mch2022_rp2040Component::set_sub_binary_sensor(uint8_t input, binary_sensor::BinarySensor *sens) {
   // if (input < SubBinarySensorInput::SUB_BINARY_SENSOR_INPUT_COUNT) {
-  this->sub_binary_sensors_[(size_t) input] = sens;
+  this->sub_binary_sensors_[input] = sens;
   //}
 }
 
-void Mch2022_rp2040Component::update_sub_binary_sensor_(SubBinarySensorInput input, bool value) {
-  size_t index = (size_t) input;
+void Mch2022_rp2040Component::update_sub_binary_sensor_(uint8_t input, bool value) {
+  // size_t index = (size_t) input;
   if (
-    (this->sub_binary_sensors_[index] != nullptr) && 
-    ((!this->sub_binary_sensors_[index]->has_state()) ||
-    (this->sub_binary_sensors_[index]->state != value))
+    (this->sub_binary_sensors_[input] != nullptr) && 
+    ((!this->sub_binary_sensors_[input]->has_state()) ||
+    (this->sub_binary_sensors_[input]->state != value))
     ) {
-      this->sub_binary_sensors_[index]->publish_state(value);
+      this->sub_binary_sensors_[input]->publish_state(value);
     }
 }
 #endif  // USE_BINARY_SENSOR
@@ -69,7 +69,7 @@ void Mch2022_rp2040Component::update_inputs() {
     for (uint8_t index = 0; index < 16; index++) {
         // std::string input_str = std::to_string(index);
         // input_str = SubBinarySensorInput(index)
-        this->update_sub_binary_sensor_(SubBinarySensorInput(index), (state >> index) & 0x01);
+        this->update_sub_binary_sensor_(index, (state >> index) & 0x01);
     }
   }
 }

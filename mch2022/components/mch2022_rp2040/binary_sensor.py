@@ -9,23 +9,19 @@ CODEOWNERS = ["@SqyD"]
 
 CONF_INPUT = "input"
 
-BinarySensorInputEnum = Mch2022_rp2040Component.enum("SubBinarySensorInput", True)
-
-## MULTI_CONF = True
-
 CONF_INPUTS = {
-  "button_home": "0",
-  "button_menu": "1",
-  "button_start": "2",
-  "button_accept": "3",
-  "button_back": "4",
-  "battery_charging": "6",
-  "button_select": "7",
-  "joystick_left": "8",
-  "joystick_press": "9",
-  "joystick_down": "10",
-  "joystick_up": "11",
-  "joystick_right": "12"
+  "button_home": 0,
+  "button_menu": 1,
+  "button_start": 2,
+  "button_accept": 3,
+  "button_back": 4,
+  "battery_charging": 6,
+  "button_select": 7,
+  "joystick_left": 8,
+  "joystick_press": 9,
+  "joystick_down": 10,
+  "joystick_up": 11,
+  "joystick_right": 12
 }
 
 CONFIG_SCHEMA = cv.Schema(
@@ -49,6 +45,6 @@ async def to_code(config):
     #)
     paren = await cg.get_variable(config[CONF_MCH20222_RP2040])
     sens = await binary_sensor.new_binary_sensor(config)
-    binary_sensor_input = getattr(BinarySensorInputEnum, CONF_INPUTS[config[CONF_INPUT]])
+    binary_sensor_input = CONF_INPUTS[config[CONF_INPUT]]
     cg.add(paren.set_sub_binary_sensor(binary_sensor_input, sens))
     # await cg.register_component(var, config)
