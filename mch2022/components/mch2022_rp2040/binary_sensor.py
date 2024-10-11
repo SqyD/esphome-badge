@@ -45,6 +45,6 @@ async def to_code(config):
     #)
     paren = await cg.get_variable(config[CONF_MCH20222_RP2040])
     sens = await binary_sensor.new_binary_sensor(config)
-    binary_sensor_input = CONF_INPUTS[config[CONF_INPUT]]
+    binary_sensor_input = int(CONF_INPUTS[config[CONF_INPUT]])
     cg.add(paren.set_sub_binary_sensor(binary_sensor_input, sens))
     # await cg.register_component(var, config)
