@@ -41,11 +41,11 @@ void Mch2022_rp2040Component::set_sub_binary_sensor(size_t input, binary_sensor:
 void Mch2022_rp2040Component::update_sub_binary_sensor_(size_t input, bool value) {
   // size_t index = (size_t) input;
   if (
-    (this->sub_binary_sensors_[input] != nullptr) && 
-    ((!this->sub_binary_sensors_[input]->has_state()) ||
-    (this->sub_binary_sensors_[input]->state != value))
+    (this->sub_binary_sensors_[(size_t)input] != nullptr) && 
+    ((!this->sub_binary_sensors_[(size_t)input]->has_state()) ||
+    (this->sub_binary_sensors_[(size_t)input]->state != value))
     ) {
-      this->sub_binary_sensors_[input]->publish_state(value);
+      this->sub_binary_sensors_[(size_t)input]->publish_state(value);
     }
 }
 #endif  // USE_BINARY_SENSOR
