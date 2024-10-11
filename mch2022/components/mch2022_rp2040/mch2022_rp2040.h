@@ -53,7 +53,7 @@ class Mch2022_rp2040Component : public Component, public i2c::I2CDevice {
       RP2040_INPUT_JOYSTICK_RIGHT,
       SUB_BINARY_SENSOR_INPUT_COUNT
     };
-  void set_sub_binary_sensor(size_t input, binary_sensor::BinarySensor *sens);
+  void set_sub_binary_sensor(size_t input, binary_sensor::BinarySensor sens);
 
  protected:
   void update_sub_binary_sensor_(size_t input, bool value);
