@@ -57,7 +57,7 @@ class Mch2022_rp2040Component : public Component, public i2c::I2CDevice {
 
  protected:
   void update_sub_binary_sensor_(size_t input, bool value);
-  std::map<size_t, *binary_sensor::BinarySensor> sub_binary_sensors_;
+  std::map<size_t, *binary_sensor::BinarySensor sub_binary_sensors_;
   // binary_sensor::BinarySensor *sub_binary_sensors_[(size_t) SubBinarySensorInput::SUB_BINARY_SENSOR_INPUT_COUNT]{nullptr};
 #endif
   public:
