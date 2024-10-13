@@ -97,6 +97,7 @@ display:
   - platform: ili9xxx
     model: ili9341
     id: badge_display
+    setup_priority: 600
     dc_pin: 33
     reset_pin: 25
     cs_pin: 32
@@ -121,4 +122,40 @@ lvgl:
 
 
 mch2022_rp2040:
-  - id: 'mch2022_rp2040_io'  
+  - id: 'mch2022_rp2040_io'
+
+binary_sensor:
+  - platform: mch2022_rp2040
+    input: button_home
+    id: buttonHOME
+  - platform: mch2022_rp2040
+    input: button_menu
+    id: buttonMENU
+  - platform: mch2022_rp2040
+    input: button_start
+    id: buttonSTART
+  - platform: mch2022_rp2040
+    input: button_accept
+    id: buttonACCEPT
+  - platform: mch2022_rp2040
+    input: button_back
+    id: buttonBACK
+  - platform: mch2022_rp2040
+    input: button_select
+    id: buttonSELECT
+  - platform: mch2022_rp2040
+    input: joystick_left
+    id: joystickLEFT
+  - platform: mch2022_rp2040
+    input: joystick_press
+    id: joystickPRESS
+  - platform: mch2022_rp2040
+    input: joystick_down
+    id: joystickDOWN
+  - platform: mch2022_rp2040
+    input: joystick_up
+    id: joystickUP
+  - platform: mch2022_rp2040
+    input: joystick_right
+    id: joystickRIGHT
+
