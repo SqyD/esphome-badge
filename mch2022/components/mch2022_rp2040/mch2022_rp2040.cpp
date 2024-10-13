@@ -36,7 +36,7 @@ void Mch2022_rp2040Component::set_sub_binary_sensor(uint8_t input, binary_sensor
   // if (input < SubBinarySensorInput::SUB_BINARY_SENSOR_INPUT_COUNT) {
   // this->sub_binary_sensors_[input] = sens;
   // this->sub_binary_sensors_.insert_or_assign((uint8_t)input, *sens)
-  this->sub_binary_sensors_.[input] = *sens)
+  this->sub_binary_sensors_[input] = *sens)
   //}
 }
 
