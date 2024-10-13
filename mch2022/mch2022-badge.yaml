@@ -113,6 +113,8 @@ display:
 lvgl:
   displays:
     - badge_display
+    - keypads:
+      home: buttonHOME
   pages:
     - id: main_page
       widgets:

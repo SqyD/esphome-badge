@@ -33,8 +33,6 @@ void Mch2022_rp2040Component::dump_config() {
 #ifdef USE_BINARY_SENSOR
 void Mch2022_rp2040Component::set_sub_binary_sensor(uint8_t input, binary_sensor::BinarySensor *sens) {
   this->sub_binary_sensors_[input] = *sens;
-  this->sub_binary_sensors_[input].set_state(false);
-  //}
 }
 
 void Mch2022_rp2040Component::update_sub_binary_sensor_(uint8_t input, bool value) {
