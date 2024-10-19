@@ -9,7 +9,7 @@ esp32:
     type: esp-idf
     sdkconfig_options:
       CONFIG_SPI_FLASH_DANGEROUS_WRITE_ALLOWED: y
-  partitions: mch2022-badge/partitions.csv
+  partitions: mch2022-partitions.csv
   flash_size: 16MB
 
 # Enable logging
@@ -32,8 +32,6 @@ wifi:
 captive_portal:
 
 external_components:
-  - source: github://SqyD/esphome/@spi_dma
-    components: [ ili9xxx ]
   - source:
       type: git
       url: https://github.com/badgeteam/esphome-badge
@@ -113,8 +111,6 @@ display:
 lvgl:
   displays:
     - badge_display
-    - keypads:
-      home: buttonHOME
   pages:
     - id: main_page
       widgets:
