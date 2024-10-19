@@ -15,13 +15,13 @@ Mch2022_BadgerosComponent = mch2022_badgeros_ns.class_("Mch2022_BadgerosComponen
 CONFIG_SCHEMA = cv.All(
     cv.Schema(
         {
-            cv.GenerateID(CONF_ID): cv.declare_id(Mch2022_BadgerosComponent),
+            cv.GenerateID(THIS_ID): cv.declare_id(Mch2022_BadgerosComponent),
             cv.Optional(CONF_USE_BADGEROS_WIFI, default=True): cv.boolean
         })
     .extend(cv.COMPONENT_SCHEMA)
 )
 
 async def to_code(config):
-    var = cg.new_Pvariable(config[CONF_ID])
-    await cg.register_component(var, config)
+    var = cg.new_Pvariable(config[THIS_ID])
+    await cg.register_component(config)
     cg.add(var.use_badgeros_wifi(config[CONF_USE_BADGEROS_WIFI]))
