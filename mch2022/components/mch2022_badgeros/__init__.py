@@ -15,7 +15,7 @@ Mch2022_BadgerosComponent = mch2022_badgeros_ns.class_("Mch2022_BadgerosComponen
 CONFIG_SCHEMA = cv.All(
     cv.Schema(
         {
-            cv.GenerateID(THIS_ID): cv.declare_id(Mch2022_BadgerosComponent),
+            cv.Required(CONF_ID): cv.declare_id(Mch2022_BadgerosComponent),
             cv.Optional(CONF_USE_BADGEROS_WIFI, default=True): cv.boolean
         })
     .extend(cv.COMPONENT_SCHEMA)
