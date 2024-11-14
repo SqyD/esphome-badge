@@ -13,15 +13,15 @@ mch2022_badgeros_ns = cg.esphome_ns.namespace("mch2022_badgeros")
 
 Mch2022_BadgerosComponent = mch2022_badgeros_ns.class_("Mch2022_BadgerosComponent", cg.Component)
 
-CONFIG_SCHEMA = cv.All(
-    cv.COMPONENT_SCHEMA(
+CONFIG_SCHEMA = (
+    cv.Schema(
         {
-            cv.Required(CONF_ID): cv.declare_id(Mch2022_BadgerosComponent),
+            cv.GenerateID(): cv.declare_id(Mch2022_BadgerosComponent),
             cv.Optional(CONF_USE_BADGEROS_WIFI, default=True): cv.boolean
         })
 )
 
 async def to_code(config):
-    var = cg.new_Pvariable(config[THIS_ID])
-    await cg.register_component(config)
+    var = cg.new_Pvariable(config[CONF_ID])
+    await cg.register_component(var, config)
     cg.add(var.use_badgeros_wifi(config[CONF_USE_BADGEROS_WIFI]))
